@@ -5,6 +5,8 @@ namespace TechJobsConsole
 {
     class Program
     {
+        private const string V = "S.no";
+
         static void Main(string[] args)
         {
             // Create two Dictionary vars to hold info for menu and data
@@ -63,7 +65,8 @@ namespace TechJobsConsole
                     // Fetch results
                     if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+                        searchResults = JobData.FindByValue(searchTerm);
+                        PrintJobs(searchResults);
                     }
                     else
                     {
@@ -118,7 +121,25 @@ namespace TechJobsConsole
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("PrintJobs is not implemented yet");
+            int count = someJobs.Count;
+            if (count == 0)
+            {
+                Console.WriteLine("No result");
+            }
+            else
+            {
+                foreach (Dictionary<string, string> item in someJobs)
+                {
+                    Console.WriteLine("\n*");
+                    foreach (KeyValuePair<string, string> items in item)
+                    {
+                        if (items.Key != V)
+                            Console.WriteLine(items.Key + " : " + items.Value);
+                    }
+                    Console.WriteLine("*\n\n");
+                }
+            }
         }
     }
 }
+
